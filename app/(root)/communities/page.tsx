@@ -17,7 +17,7 @@ async function Page({
   if (!user) return null;
 
   const userInfo = await fetchUser(user.id);
-  if (!userInfo?.onboarded) redirect("/onboarding");
+  // if (!userInfo?.onboarded) redirect("/onboarding");
 
   const result = await fetchCommunities({
     searchString: searchParams.q,
@@ -58,6 +58,7 @@ async function Page({
         pageNumber={searchParams?.page ? +searchParams.page : 1}
         isNext={result.isNext}
       />
+      {!user && <p>Please sign in to participate in communities.</p>}
     </>
   );
 }

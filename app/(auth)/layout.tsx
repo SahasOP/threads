@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import Image from "next/image";
+import Link from "next/link";
 
 import "../globals.css";
 
@@ -24,8 +26,24 @@ export default function RootLayout({
         baseTheme: dark,
       }}
     >
-      <html lang='en'>
-        <body className={`${inter.className} bg-dark-1`}>{children}</body>
+      <html lang="en">
+        <body
+          className={`${inter.className} bg-dark-1 flex justify-center items-center w-screen h-screen`}
+        >
+          {/* Top left corner logo and title */}
+          <div className="absolute top-6 left-6 mx-4 flex items-center gap-2 scale-150">
+            <Link href="/">
+              <Image src="/logo.svg" alt="Threads logo" width={20} height={20} />
+            </Link>
+            <Link href="/" className="text-lg font-bold text-white">
+              Threads
+            </Link>
+          </div>
+
+          <div className="scale-110 flex justify-center items-center">
+            {children}
+          </div>
+        </body>
       </html>
     </ClerkProvider>
   );

@@ -16,7 +16,6 @@ export const metadata: Metadata = {
   title: "Threads",
   description: "A Next.js 13 Meta Threads application",
 };
-
 export default function RootLayout({
   children,
 }: {
