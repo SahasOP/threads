@@ -5,7 +5,8 @@ import { fetchPosts } from "@/lib/actions/thread.actions";
 
 async function Home({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
   const user = await currentUser();
-  const result = await fetchPosts(searchParams.page ? +searchParams.page : 1, 30);
+  const page = searchParams.page ? +searchParams.page : 1;
+  const result = await fetchPosts(page, 30);
 
   return (
     <>
@@ -19,19 +20,19 @@ async function Home({ searchParams }: { searchParams: { [key: string]: string | 
               <ThreadCard
                 key={post._id}
                 id={post._id}
-                currentUserId={user ? user.id : undefined}
-                parentId={post.parentId}
+                currentUserId={user ? user.id : ''}
+                parentId={post.parentId || ''}
                 content={post.text}
                 author={post.author}
-                community={post.community}
+                community={post.community || ''}
                 createdAt={post.createdAt}
-                comments={post.children}
+                comments={post.children || []}
               />
             ))}
           </>
         )}
       </section>
-      <Pagination path="/" pageNumber={searchParams?.page ? +searchParams.page : 1} isNext={result.isNext} />
+      <Pagination path="/" pageNumber={page} isNext={result.isNext} />
     </>
   );
 }
